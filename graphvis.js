@@ -40,8 +40,8 @@ window.onload = function() {
       link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
     });
 
-    var width = 960,
-        height = 500;
+    var width = document.body.offsetWidth,
+        height = document.body.offsetHeight;
 
     var force = d3.layout.force()
         .nodes(d3.values(nodes))
@@ -147,4 +147,12 @@ window.onload = function() {
     function transform(d) {
       return "translate(" + d.x + "," + d.y + ")";
     }
+    window.addEventListener('resize', function() {
+        var width = document.body.offsetWidth,
+            height = document.body.offsetHeight;
+
+        force.size([width, height]);
+        svg.attr('width', width)
+           .attr('height', height);
+    });
 }
