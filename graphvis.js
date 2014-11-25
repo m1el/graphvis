@@ -43,6 +43,8 @@ window.onload = function() {
     var width = document.body.offsetWidth,
         height = document.body.offsetHeight;
 
+    var node_v = d3.values(nodes);
+
     var force = d3.layout.force()
         .nodes(d3.values(nodes))
         .links(links)
@@ -147,6 +149,7 @@ window.onload = function() {
     function transform(d) {
       return "translate(" + d.x + "," + d.y + ")";
     }
+
     window.addEventListener('resize', function() {
         var width = document.body.offsetWidth,
             height = document.body.offsetHeight;
@@ -154,5 +157,10 @@ window.onload = function() {
         force.size([width, height]);
         svg.attr('width', width)
            .attr('height', height);
+    });
+    document.getElementById('reset').addEventListener('click', function() {
+        node_v.map(function(e) {
+            e.fixed = false;
+        });
     });
 }
